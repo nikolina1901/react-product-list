@@ -1,14 +1,13 @@
+import React from "react";
 import axios from "axios";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./App.css";
 import ProductList from "./components /ProductList";
-import React from "react";
-
 import ProductDetails from "./components /ProductDetails";
 
 function App() {
-  const [allPoducts, setAllProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -28,12 +27,17 @@ function App() {
         <Route
           exact
           path="/products"
-          render={(props) => <ProductList allPoducts={allPoducts} />}
+          render={(props) => (
+            <ProductList {...props} allProducts={allProducts} />
+          )}
         />
         <Route
           path="/products/:id"
-          render={(props) => <ProductDetails allPoducts={allPoducts} />}
+          render={(props) => (
+            <ProductDetails {...props} allProducts={allProducts} />
+          )}
         />
+
         <Redirect to="/products" />
       </Switch>
     </div>
