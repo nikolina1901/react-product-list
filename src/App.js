@@ -1,8 +1,11 @@
 import axios from "axios";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./App.css";
 import ProductList from "./components /ProductList";
 import React from "react";
+
+import ProductDetails from "./components /ProductDetails";
 
 function App() {
   const [allPoducts, setAllProducts] = useState([]);
@@ -21,7 +24,18 @@ function App() {
   };
   return (
     <div className="App">
-      <ProductList allPoducts={allPoducts} />
+      <Switch>
+        <Route
+          exact
+          path="/products"
+          render={(props) => <ProductList allPoducts={allPoducts} />}
+        />
+        <Route
+          path="/products/:id"
+          render={(props) => <ProductDetails allPoducts={allPoducts} />}
+        />
+        <Redirect to="/products" />
+      </Switch>
     </div>
   );
 }
